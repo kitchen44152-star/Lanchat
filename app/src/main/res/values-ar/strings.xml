@@ -1,0 +1,231 @@
+<resources>
+    <string name="app_name">LanChat</string>
+    <string name="nav_chats">الدردشات</string>
+    <string name="nav_mesh">الشبكة</string>
+    <string name="nav_contacts">جهات الاتصال</string>
+    <string name="nav_settings">الإعدادات</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_title">مراسلة شبكية بدون إنترنت</string>
+    <string name="onboarding_subtitle">تواصل مباشرةً بين الهواتف دون إنترنت أو راوتر، بتشفير تام من طرف لطرف وتمرير متعدد القفزات.</string>
+    <string name="onboarding_name_label">الاسم الظاهر</string>
+    <string name="onboarding_name_hint">مثال: أحمد · قائد الرحلة</string>
+    <string name="onboarding_start_cta">بدء تشغيل الهوية الشبكية</string>
+    <string name="onboarding_permissions_title">أذونات الراديو والشبكة</string>
+    <string name="onboarding_permissions_desc">يتيح البلوتوث وواي فاي القريب الاكتشاف التلقائي والتمرير بين الأجهزة بدون تتبع موقع.</string>
+    <string name="onboarding_keys_title">هوية مشفّرة Ed25519 + X25519</string>
+    <string name="onboarding_keys_desc">تُنشأ مفاتيح التشفير محلياً على جهازك. تحقق من الأشخاص عبر رمز QR.</string>
+    <string name="onboarding_relay_title">خدمة التمرير في الخلفية</string>
+    <string name="onboarding_relay_desc">إبقاء اكتشاف الأجهزة وتمرير الرسائل المؤجلة نشطاً أثناء تصغير التطبيق.</string>
+    <string name="onboarding_grant_permissions_cta">منح أذونات البلوتوث وواي فاي القريب</string>
+
+    <!-- Status & Badges -->
+    <string name="mesh_status_active">الشبكة نشطة</string>
+    <string name="mesh_status_paused">الشبكة متوقفة</string>
+    <string name="mesh_status_starting">جارٍ تشغيل الشبكة…</string>
+    <string name="mesh_status_permission_needed">يلزم منح أذونات الراديو</string>
+    <string name="mesh_status_error_retry">خطأ في الشبكة · إعادة</string>
+    <string name="mesh_status_scanning_relay_on">جارٍ البحث · التمرير نشط</string>
+    <string name="mesh_status_scanning_fg_only">جارٍ البحث · الواجهة فقط</string>
+    <string name="mesh_status_links_format">%1$d مباشر · %2$d متصل</string>
+    <string name="mesh_broadcast_title">#Nearby Mesh</string>
+    <string name="mesh_broadcast_subtitle">قناة عامة موقّعة عبر الأجهزة القريبة</string>
+
+    <string name="badge_verified">موثّق</string>
+    <string name="badge_unverified">غير موثّق</string>
+    <string name="badge_key_changed">تغيّر المفتاح</string>
+
+    <!-- Chats Screen -->
+    <string name="chats_search_placeholder">ابحث في المحادثات والقنوات…</string>
+    <string name="chats_empty_title">لا توجد محادثات مطابقة</string>
+    <string name="chats_empty_subtitle">افتح تبويب الشبكة لاكتشاف الهواتف القريبة أو أنشئ مجموعة مشفّرة جديدة.</string>
+    <string name="chats_new_sheet_title">بدء محادثة شبكية</string>
+    <string name="chats_new_group_title">مجموعة مشفّرة جديدة</string>
+    <string name="chats_new_group_subtitle">غرفة AES-256-GCM عبر عدة أجهزة</string>
+    <string name="chats_verify_qr_title">التحقق من جهة عبر QR</string>
+    <string name="chats_verify_qr_subtitle">إضافة أو توثيق جهاز بدون إنترنت مباشرةً</string>
+    <string name="chats_discovered_peers">الأجهزة المكتشفة</string>
+    <string name="chats_direct_link">اتصال مباشر (قفزة واحدة)</string>
+    <string name="chats_hops_away">على بُعد %1$d قفزات</string>
+    <string name="chats_dtn_queue">في انتظار الاتصال (DTN)</string>
+    <string name="chats_hop_prefix_direct">مباشر · %1$s</string>
+    <string name="chats_hop_prefix_multi">%1$d قفزات · %2$s</string>
+    <string name="chats_delete_title">حذف %1$s؟</string>
+    <string name="chats_delete_body">يحذف الرسائل من هذا الجهاز فقط، بينما تبقى الرسائل المرسلة لدى الطرف الآخر.</string>
+    <string name="chats_select_prompt">اختر محادثة لعرضها</string>
+
+    <!-- Chat Screen -->
+    <string name="chat_title_default">محادثة</string>
+    <string name="chat_subtitle_group">مجموعة مشفّرة AES-256-GCM</string>
+    <string name="chat_subtitle_dtn_ready">جاهز للإرسال المؤجل DTN</string>
+    <string name="chat_subtitle_direct_e2e">اتصال مباشر · مشفّر E2E</string>
+    <string name="chat_subtitle_multihop_e2e">%1$d قفزات عبر الشبكة · مشفّر</string>
+    <string name="chat_subtitle_offline_dtn">غير متصل · حفظ وتمرير لاحقاً</string>
+    <string name="chat_key_changed_warning">تغيّر مفتاح الأمان الخاص بـ %1$s. تحقّق عبر QR قبل الوثوق.</string>
+    <string name="chat_empty_title">جاهز للمراسلة بدون إنترنت</string>
+    <string name="chat_empty_body">أرسل نصوصاً أو رسائل صوتية أو صوراً. عند خروج الطرف من المدى، تُحفظ وتُمرّر تلقائياً عبر الأجهزة.</string>
+    <string name="chat_replying_to">رداً على %1$s</string>
+    <string name="chat_mic_rationale">يلزم إذن الميكروفون لتسجيل الرسائل الصوتية.</string>
+    <string name="chat_attach_choose_photo">اختيار صورة</string>
+    <string name="chat_attach_take_photo">التقاط صورة</string>
+    <string name="chat_composer_placeholder">رسالة عبر الشبكة…</string>
+    <string name="chat_send_photo_title">إرسال صورة عبر الشبكة</string>
+    <string name="chat_photo_caption_label">تعليق اختياري</string>
+    <string name="chat_photo_caption_hint">أضف ملاحظة…</string>
+    <string name="chat_hops_badge">%1$d قفزات</string>
+    <string name="chat_date_today">اليوم</string>
+    <string name="chat_date_yesterday">أمس</string>
+    <string name="chat_awaiting_chunks">جارٍ استلام الأجزاء (%1$s)</string>
+    <string name="chat_transfer_paused">متوقف مؤقتاً · %1$d%%</string>
+    <string name="chat_transfer_failed">فشل النقل</string>
+    <string name="chat_transfer_queued">في الانتظار · %1$d%%</string>
+    <string name="chat_transfer_chunk_speed">%1$s/ث · جزء %2$d/%3$d</string>
+
+    <!-- Mesh Radar Screen -->
+    <string name="mesh_radar_title">رادار الشبكة</string>
+    <string name="mesh_radar_bt_off">البلوتوث متوقف. </string>
+    <string name="mesh_radar_wifi_off">الواي فاي متوقف. </string>
+    <string name="mesh_radar_enable_radios">فعّل كليهما لأفضل مدى وسرعة.</string>
+    <string name="mesh_radar_bt_settings">إعدادات البلوتوث</string>
+    <string name="mesh_radar_wifi_settings">إعدادات الواي فاي</string>
+    <string name="mesh_radar_gps_share_on">GPS مفعّل</string>
+    <string name="mesh_radar_gps_share_off">مشاركة GPS</string>
+    <string name="mesh_radar_compass_active">البوصلة %1$d° · %2$s</string>
+    <string name="mesh_radar_signal_only_hint">حلقات تقديرية · فعّل GPS لمعرفة الاتجاه والمسافة</string>
+    <string name="mesh_radar_gps_waiting">جارٍ التقاط إشارة الأقمار بدون إنترنت…</string>
+    <string name="mesh_radar_you_label">أنت: %1$s (%2$s)</string>
+    <string name="mesh_radar_legend_1hop">مباشر</string>
+    <string name="mesh_radar_legend_multihop">متعدد القفزات</string>
+    <string name="mesh_metric_direct">مباشر</string>
+    <string name="mesh_metric_reachable">متاح</string>
+    <string name="mesh_metric_relayed">مُمرّر</string>
+    <string name="mesh_metric_dtn">الانتظار</string>
+    <string name="mesh_discovered_nodes">الأجهزة المكتشفة (%1$d)</string>
+    <string name="mesh_scanning_title">جارٍ البحث عن أجهزة LanChat القريبة…</string>
+    <string name="mesh_scanning_desc">تتصل الأجهزة القريبة تلقائياً عبر البلوتوث وواي فاي دايركت بدون راوتر أو إنترنت.</string>
+    <string name="mesh_peer_direct_info">قفزة واحدة (مباشر · إشارة %1$d%%)</string>
+    <string name="mesh_peer_multihop_info">%1$d قفزات عبر %2$s</string>
+    <string name="mesh_peer_offline_info">غير متصل (محفوظ في DTN)</string>
+    <string name="mesh_sheet_node_id">معرّف الجهاز: %1$s</string>
+    <string name="mesh_sheet_route_direct">المسار: رابط مباشر P2P (إشارة %1$d%%)</string>
+    <string name="mesh_sheet_route_multihop">المسار: %1$d قفزات عبر %2$s (إشارة %3$d%%)</string>
+    <string name="mesh_sheet_route_offline">المسار: خارج المدى حالياً · الحفظ والتمرير DTN نشط</string>
+    <string name="mesh_sheet_encryption">التشفير: X25519 ECDH + HKDF-SHA256 + AES-256-GCM</string>
+    <string name="mesh_sheet_distance">الموقع: يبعد %1$s (باتجاه %2$s)</string>
+    <string name="mesh_compass_n">ش</string>
+    <string name="mesh_compass_e">ق</string>
+    <string name="mesh_compass_s">ج</string>
+    <string name="mesh_compass_w">غ</string>
+
+    <!-- Contacts & Create Group -->
+    <string name="contacts_title">جهات الاتصال والمفاتيح</string>
+    <string name="contacts_empty_title">لا توجد أجهزة مقترنة بعد</string>
+    <string name="contacts_empty_desc">يظهر مستخدمو LanChat القريبون تلقائياً، أو امسح رمز QR لصديقك للتحقق من هويته المشفّرة.</string>
+    <string name="contacts_scan_show_qr">مسح أو عرض رمز QR</string>
+    <string name="contacts_node_prefix">العقدة %1$s</string>
+    <string name="create_group_name_label">اسم المجموعة</string>
+    <string name="create_group_name_hint">مثال: فريق الرحلة</string>
+    <string name="create_group_select_peers">اختر الأعضاء (%1$d محدد)</string>
+    <string name="create_group_submit">إنشاء غرفة مشفّرة AES-256</string>
+    <string name="create_group_default_name">مجموعة الشبكة</string>
+
+    <!-- Verify Peer QR -->
+    <string name="verify_title">التحقق عبر رمز QR</string>
+    <string name="verify_tab_my_qr">رمزي ومفتاحي</string>
+    <string name="verify_tab_scan_qr">مسح رمز الصديق</string>
+    <string name="verify_safety_number_title">رقم الأمان مع %1$s</string>
+    <string name="verify_confirm_safety">تأكيد تطابق رقم الأمان</string>
+    <string name="verify_camera_title">يلزم إذن الكاميرا</string>
+    <string name="verify_camera_desc">اسمح للكاميرا بمسح رمز QR للتحقق من التشفير مع الشخص المقابل.</string>
+    <string name="verify_camera_grant">منح إذن الكاميرا</string>
+    <string name="verify_scan_prompt">وجّه رمز QR الخاص بصديقك داخل الإطار</string>
+    <string name="verify_scan_success">تم توثيق %1$s (%2$s) بنجاح!</string>
+    <string name="verify_scan_invalid">رمز QR غير صالح أو منتهي</string>
+
+    <!-- Settings -->
+    <string name="settings_title">إعدادات الشبكة</string>
+    <string name="settings_identity_section">الهوية الشبكية المحلية</string>
+    <string name="settings_save_name">حفظ وبث الاسم الجديد</string>
+    <string name="settings_relay_title">خدمة التمرير في الخلفية</string>
+    <string name="settings_relay_desc">تشغيل خدمة connectedDevice لتمرير رسائل الشبكة في الخلفية.</string>
+    <string name="settings_gps_title">مشاركة GPS بدون إنترنت على الرادار</string>
+    <string name="settings_gps_desc">إحداثيات أقمار صناعية اختيارية تُرسل فقط ضمن إشارات الشبكة المحلية.</string>
+    <string name="settings_max_hops">أقصى عدد للقفزات (TTL): %1$d قفزات</string>
+    <string name="settings_appearance">المظهر</string>
+    <string name="settings_theme_system">النظام</string>
+    <string name="settings_theme_light">فاتح</string>
+    <string name="settings_theme_dark">داكن</string>
+    <string name="settings_clear_history_btn">مسح المحادثات وطابور DTN</string>
+    <string name="settings_clear_dialog_title">مسح السجل المحلي بالكامل؟</string>
+    <string name="settings_clear_dialog_body">سيُحذف سجل الرسائل والوسائط وطابور التمرير من هذا الجهاز فقط.</string>
+    <string name="settings_diagnostics_title">سجل تشخيص راديو الشبكة</string>
+    <string name="settings_diagnostics_empty">لا توجد أحداث راديو مسجلة بعد.</string>
+
+    <!-- Alerts & Notifications -->
+    <string name="alert_image_failed">تعذّر تجهيز الصورة. جرّب اختيار صورة أخرى.</string>
+    <string name="alert_name_updated">تم حفظ الاسم وبثّه للأجهزة القريبة.</string>
+    <string name="alert_location_needed">اسمح بإذن الموقع لمشاركة إحداثياتك بدون إنترنت على الرادار.</string>
+    <string name="action_send">إرسال</string>
+    <string name="action_cancel">إلغاء</string>
+    <string name="action_delete">حذف</string>
+    <string name="action_clear">مسح</string>
+    <string name="action_verify">توثيق</string>
+    <string name="action_verify_qr">توثيق QR</string>
+    <string name="action_message">مراسلة</string>
+    <string name="action_reply">رد</string>
+    <string name="action_copy">نسخ</string>
+    <string name="action_copied">تم النسخ</string>
+
+    <string name="notification_channel_mesh_name">خدمة شبكة LanChat</string>
+    <string name="notification_channel_mesh_desc">تحافظ على استمرار البحث والتمرير متعدد القفزات في الخلفية.</string>
+    <string name="notification_channel_messages_name">الرسائل الواردة</string>
+    <string name="notification_channel_messages_desc">تنبيهات الرسائل الشبكية الواردة بدون إنترنت.</string>
+    <string name="notification_relay_title">شبكة LanChat نشطة</string>
+    <string name="notification_relay_scanning">جارٍ البحث عن أجهزة عبر البلوتوث وواي فاي…</string>
+    <string name="notification_relay_summary">%1$d مباشر · %2$d متاح · %3$d مُمرّر</string>
+    <string name="action_pause_relay">إيقاف مؤقت</string>
+    <string name="action_resume_relay">استئناف</string>
+
+    <!-- Interactive Radar & Map -->
+    <string name="mesh_radar_gps_locked">تحديد موقع محلي نشط (±%1$d م)</string>
+    <string name="mesh_radar_gps_cached">آخر موقع معروف للجهاز (±%1$d م)</string>
+    <string name="mesh_radar_compass_only">بوصلة حية · فعّل GPS للمسافة الدقيقة</string>
+    <string name="mesh_radar_scale_label">النطاق %1$s</string>
+    <string name="mesh_radar_zoom_in">تكبير الرادار</string>
+    <string name="mesh_radar_zoom_out">تصغير الرادار</string>
+    <string name="mesh_radar_recenter">توسيط الرادار</string>
+    <string name="mesh_radar_toggle_grid">إظهار شبكة الإحداثيات</string>
+    <string name="mesh_radar_peer_no_gps">اتجاه إشارة فقط (GPS مغلق عنده)</string>
+    <string name="mesh_radar_peer_gps_ready">إحداثيات GPS نشطة</string>
+
+    <!-- Mesh Voice Calling -->
+    <string name="action_call">اتصال</string>
+    <string name="call_title_e2e">مكالمة مشفّرة عبر الشبكة</string>
+    <string name="call_status_outgoing">جارٍ الاتصال عبر الشبكة…</string>
+    <string name="call_status_incoming">مكالمة صوتية واردة بدون إنترنت…</string>
+    <string name="call_status_connecting">جارٍ تجهيز البث الصوتي…</string>
+    <string name="call_status_active_direct">مباشر · قفزة واحدة</string>
+    <string name="call_status_active_multihop">متصل · %1$d قفزات عبر الشبكة</string>
+    <string name="call_ended_hangup">انتهت المكالمة</string>
+    <string name="call_ended_declined">تم رفض المكالمة</string>
+    <string name="call_ended_busy">الطرف الآخر في مكالمة أخرى</string>
+    <string name="call_ended_no_answer">لا يوجد رد</string>
+    <string name="call_ended_unreachable">الجهاز غير متاح حالياً على الشبكة</string>
+    <string name="call_ended_link_lost">انقطع اتصال الشبكة</string>
+    <string name="call_ended_mic_denied">يلزم إذن الميكروفون لإجراء المكالمات</string>
+    <string name="call_action_accept">رد</string>
+    <string name="call_action_decline">رفض</string>
+    <string name="call_action_hangup">إنهاء</string>
+    <string name="call_action_mute">كتم</string>
+    <string name="call_action_unmute">إلغاء الكتم</string>
+    <string name="call_action_speaker">مكبر الصوت</string>
+    <string name="call_action_minimize">تصغير</string>
+    <string name="call_minimized_banner">مكالمة جارية · %1$s · %2$s (اضغط للعودة)</string>
+    <string name="call_log_completed">مكالمة صوتية · %1$s</string>
+    <string name="call_log_missed">مكالمة فائتة</string>
+    <string name="call_log_declined">مكالمة مرفوضة</string>
+    <string name="notification_channel_calls_name">المكالمات الشبكية الواردة</string>
+    <string name="notification_channel_calls_desc">تنبيهات المكالمات الصوتية الفورية بدون إنترنت.</string>
+    <string name="notification_call_incoming_body">مكالمة صوتية مشفّرة بدون إنترنت</string>
+    <string name="notification_call_active_body">مكالمة صوتية جارية · %1$s</string>
+</resources>

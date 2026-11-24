@@ -1,0 +1,231 @@
+<resources>
+    <string name="app_name">LanChat</string>
+    <string name="nav_chats">Chats</string>
+    <string name="nav_mesh">Mesh</string>
+    <string name="nav_contacts">Contacts</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_title">Off-Grid Mesh Messaging</string>
+    <string name="onboarding_subtitle">Connect directly across phones without internet or routers. Encrypted end-to-end, relayed hop by hop.</string>
+    <string name="onboarding_name_label">Display Name</string>
+    <string name="onboarding_name_hint">e.g., Alex · Trail Lead</string>
+    <string name="onboarding_start_cta">Initialize Mesh Identity</string>
+    <string name="onboarding_permissions_title">Radio &amp; Mesh Permissions</string>
+    <string name="onboarding_permissions_desc">Bluetooth &amp; Nearby Wi-Fi allow automatic discovery and multi-hop relaying. Zero location tracking.</string>
+    <string name="onboarding_keys_title">Ed25519 + X25519 Mesh Identity</string>
+    <string name="onboarding_keys_desc">End-to-end keys generated locally on device. Verify peers via QR.</string>
+    <string name="onboarding_relay_title">Background Relay Service</string>
+    <string name="onboarding_relay_desc">Keep multi-hop discovery and DTN packet relaying active while minimized.</string>
+    <string name="onboarding_grant_permissions_cta">Grant Bluetooth &amp; Nearby Wi-Fi</string>
+
+    <!-- Status & Badges -->
+    <string name="mesh_status_active">Mesh Active</string>
+    <string name="mesh_status_paused">Mesh Paused</string>
+    <string name="mesh_status_starting">Starting Mesh…</string>
+    <string name="mesh_status_permission_needed">Grant Radio Permissions</string>
+    <string name="mesh_status_error_retry">Mesh Error · Retry</string>
+    <string name="mesh_status_scanning_relay_on">Scanning · Relay On</string>
+    <string name="mesh_status_scanning_fg_only">Scanning · FG Only</string>
+    <string name="mesh_status_links_format">%1$d Direct · %2$d Reachable</string>
+    <string name="mesh_broadcast_title">#Nearby Mesh</string>
+    <string name="mesh_broadcast_subtitle">Signed Public Mesh Channel</string>
+
+    <string name="badge_verified">Verified</string>
+    <string name="badge_unverified">Unverified</string>
+    <string name="badge_key_changed">Key Changed</string>
+
+    <!-- Chats Screen -->
+    <string name="chats_search_placeholder">Search mesh chats &amp; channels…</string>
+    <string name="chats_empty_title">No matching conversations</string>
+    <string name="chats_empty_subtitle">Tap the Mesh tab to discover nearby phones or start a new encrypted group.</string>
+    <string name="chats_new_sheet_title">Start Mesh Conversation</string>
+    <string name="chats_new_group_title">New Encrypted Group</string>
+    <string name="chats_new_group_subtitle">AES-256-GCM room across multiple peers</string>
+    <string name="chats_verify_qr_title">Verify Peer via QR Code</string>
+    <string name="chats_verify_qr_subtitle">Add or verify an offline node in person</string>
+    <string name="chats_discovered_peers">Discovered Peers</string>
+    <string name="chats_direct_link">Direct 1-hop link</string>
+    <string name="chats_hops_away">%1$d hops away</string>
+    <string name="chats_dtn_queue">DTN offline queue</string>
+    <string name="chats_hop_prefix_direct">Direct · %1$s</string>
+    <string name="chats_hop_prefix_multi">%1$d hops · %2$s</string>
+    <string name="chats_delete_title">Delete %1$s?</string>
+    <string name="chats_delete_body">This deletes messages from this device only. Messages already sent stay on peers.</string>
+    <string name="chats_select_prompt">Select a conversation</string>
+
+    <!-- Chat Screen -->
+    <string name="chat_title_default">Conversation</string>
+    <string name="chat_subtitle_group">AES-256-GCM Encrypted Group</string>
+    <string name="chat_subtitle_dtn_ready">Offline DTN Queue Ready</string>
+    <string name="chat_subtitle_direct_e2e">Direct 1-Hop · E2E Encrypted</string>
+    <string name="chat_subtitle_multihop_e2e">%1$d Hops via Mesh · E2E</string>
+    <string name="chat_subtitle_offline_dtn">Offline · Store-and-Forward</string>
+    <string name="chat_key_changed_warning">Security key changed for %1$s. Verify via QR before trusting.</string>
+    <string name="chat_empty_title">Ready for Offline Mesh</string>
+    <string name="chat_empty_body">Send text, voice notes, or photos. If out of direct range, packets queue automatically for multi-hop relay.</string>
+    <string name="chat_replying_to">Replying to %1$s</string>
+    <string name="chat_mic_rationale">Microphone permission is needed to record voice notes.</string>
+    <string name="chat_attach_choose_photo">Choose Photo</string>
+    <string name="chat_attach_take_photo">Take Photo</string>
+    <string name="chat_composer_placeholder">Message via mesh…</string>
+    <string name="chat_send_photo_title">Send Mesh Photo</string>
+    <string name="chat_photo_caption_label">Optional caption</string>
+    <string name="chat_photo_caption_hint">Add a note…</string>
+    <string name="chat_hops_badge">%1$d hops</string>
+    <string name="chat_date_today">Today</string>
+    <string name="chat_date_yesterday">Yesterday</string>
+    <string name="chat_awaiting_chunks">Awaiting chunks (%1$s)</string>
+    <string name="chat_transfer_paused">Paused · %1$d%%</string>
+    <string name="chat_transfer_failed">Transfer failed</string>
+    <string name="chat_transfer_queued">Queued · %1$d%%</string>
+    <string name="chat_transfer_chunk_speed">%1$s/s · Chunk %2$d/%3$d</string>
+
+    <!-- Mesh Radar Screen -->
+    <string name="mesh_radar_title">Mesh Radar</string>
+    <string name="mesh_radar_bt_off">Bluetooth is turned off. </string>
+    <string name="mesh_radar_wifi_off">Wi-Fi is turned off. </string>
+    <string name="mesh_radar_enable_radios">Enable both for best range &amp; speed.</string>
+    <string name="mesh_radar_bt_settings">Bluetooth Settings</string>
+    <string name="mesh_radar_wifi_settings">Wi-Fi Settings</string>
+    <string name="mesh_radar_gps_share_on">GPS On</string>
+    <string name="mesh_radar_gps_share_off">Share GPS</string>
+    <string name="mesh_radar_compass_active">Compass %1$d° · %2$s</string>
+    <string name="mesh_radar_signal_only_hint">Signal-only rings · Enable GPS for exact bearing</string>
+    <string name="mesh_radar_gps_waiting">Waiting for offline satellite fix…</string>
+    <string name="mesh_radar_you_label">You: %1$s (%2$s)</string>
+    <string name="mesh_radar_legend_1hop">1-Hop</string>
+    <string name="mesh_radar_legend_multihop">Multi-Hop</string>
+    <string name="mesh_metric_direct">Direct Links</string>
+    <string name="mesh_metric_reachable">Reachable</string>
+    <string name="mesh_metric_relayed">Relayed</string>
+    <string name="mesh_metric_dtn">DTN Queue</string>
+    <string name="mesh_discovered_nodes">Discovered Mesh Nodes (%1$d)</string>
+    <string name="mesh_scanning_title">Scanning for nearby LanChat devices…</string>
+    <string name="mesh_scanning_desc">Nearby devices using LanChat connect automatically over Bluetooth and Wi-Fi Direct without routers or internet.</string>
+    <string name="mesh_peer_direct_info">1 hop (Direct · %1$d%% link)</string>
+    <string name="mesh_peer_multihop_info">%1$d hops via %2$s</string>
+    <string name="mesh_peer_offline_info">Offline (DTN buffered)</string>
+    <string name="mesh_sheet_node_id">Node ID: %1$s</string>
+    <string name="mesh_sheet_route_direct">Route: Direct P2P link (%1$d%% signal)</string>
+    <string name="mesh_sheet_route_multihop">Route: %1$d hops via %2$s (%3$d%% link)</string>
+    <string name="mesh_sheet_route_offline">Route: Currently out of range · Store-and-Forward DTN enabled</string>
+    <string name="mesh_sheet_encryption">Encryption: X25519 ECDH + HKDF-SHA256 + AES-256-GCM</string>
+    <string name="mesh_sheet_distance">Location: %1$s away (%2$s)</string>
+    <string name="mesh_compass_n">N</string>
+    <string name="mesh_compass_e">E</string>
+    <string name="mesh_compass_s">S</string>
+    <string name="mesh_compass_w">W</string>
+
+    <!-- Contacts & Create Group -->
+    <string name="contacts_title">Contacts &amp; Keys</string>
+    <string name="contacts_empty_title">No peers paired yet</string>
+    <string name="contacts_empty_desc">Nearby LanChat users appear here automatically, or scan a friend\'s QR code in person to verify their E2E identity.</string>
+    <string name="contacts_scan_show_qr">Scan or Show QR Code</string>
+    <string name="contacts_node_prefix">Node %1$s</string>
+    <string name="create_group_name_label">Group Name</string>
+    <string name="create_group_name_hint">e.g., Ridge Trail Squad</string>
+    <string name="create_group_select_peers">Select Peers (%1$d selected)</string>
+    <string name="create_group_submit">Create AES-256 Encrypted Room</string>
+    <string name="create_group_default_name">Mesh Group</string>
+
+    <!-- Verify Peer QR -->
+    <string name="verify_title">QR Identity &amp; Verification</string>
+    <string name="verify_tab_my_qr">My QR &amp; Code</string>
+    <string name="verify_tab_scan_qr">Scan Peer QR</string>
+    <string name="verify_safety_number_title">Safety Number with %1$s</string>
+    <string name="verify_confirm_safety">Confirm Safety Number Match</string>
+    <string name="verify_camera_title">Camera Permission Needed</string>
+    <string name="verify_camera_desc">Allow camera access to scan a peer\'s LanChat QR code for cryptographic verification.</string>
+    <string name="verify_camera_grant">Grant Camera Permission</string>
+    <string name="verify_scan_prompt">Align a peer\'s LanChat QR code inside the frame</string>
+    <string name="verify_scan_success">Verified %1$s (%2$s)!</string>
+    <string name="verify_scan_invalid">Invalid or spoofed QR code</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Mesh Settings</string>
+    <string name="settings_identity_section">Local Mesh Identity</string>
+    <string name="settings_save_name">Save &amp; Broadcast Name</string>
+    <string name="settings_relay_title">Background Foreground Relay</string>
+    <string name="settings_relay_desc">Keep connectedDevice service active to relay packets in the background.</string>
+    <string name="settings_gps_title">Share Offline GPS on Radar</string>
+    <string name="settings_gps_desc">Optional satellite coordinates shared only in local mesh beacons (zero internet).</string>
+    <string name="settings_max_hops">Max Multi-Hop Relay TTL: %1$d hops</string>
+    <string name="settings_appearance">Appearance</string>
+    <string name="settings_theme_system">System</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_dark">Dark</string>
+    <string name="settings_clear_history_btn">Clear Local Chats &amp; DTN Queue</string>
+    <string name="settings_clear_dialog_title">Clear all local history?</string>
+    <string name="settings_clear_dialog_body">Removes messages, staged media, and pending DTN relay packets from this device.</string>
+    <string name="settings_diagnostics_title">Live Mesh Radio Diagnostics</string>
+    <string name="settings_diagnostics_empty">No radio events recorded yet.</string>
+
+    <!-- Alerts & Notifications -->
+    <string name="alert_image_failed">Could not process photo. Try selecting another image.</string>
+    <string name="alert_name_updated">Display name saved and broadcast to mesh.</string>
+    <string name="alert_location_needed">Allow location permission to share offline radar coordinates.</string>
+    <string name="action_send">Send</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_clear">Clear</string>
+    <string name="action_verify">Verify</string>
+    <string name="action_verify_qr">Verify QR</string>
+    <string name="action_message">Message</string>
+    <string name="action_reply">Reply</string>
+    <string name="action_copy">Copy</string>
+    <string name="action_copied">Copied</string>
+
+    <string name="notification_channel_mesh_name">LanChat Mesh Relay</string>
+    <string name="notification_channel_mesh_desc">Keeps offline multi-hop mesh discovery and message relaying active in the background.</string>
+    <string name="notification_channel_messages_name">Incoming Messages</string>
+    <string name="notification_channel_messages_desc">Notifications for new offline mesh messages.</string>
+    <string name="notification_relay_title">LanChat Mesh Active</string>
+    <string name="notification_relay_scanning">Scanning nearby Bluetooth &amp; Wi-Fi peers…</string>
+    <string name="notification_relay_summary">%1$d direct · %2$d reachable · %3$d relayed</string>
+    <string name="action_pause_relay">Pause Relay</string>
+    <string name="action_resume_relay">Resume Relay</string>
+
+    <!-- Interactive Radar & Map -->
+    <string name="mesh_radar_gps_locked">Offline coordinate lock (±%1$dm)</string>
+    <string name="mesh_radar_gps_cached">Last known device fix (±%1$dm)</string>
+    <string name="mesh_radar_compass_only">Compass-locked · Enable GPS for exact m</string>
+    <string name="mesh_radar_scale_label">Radius %1$s</string>
+    <string name="mesh_radar_zoom_in">Zoom in radar</string>
+    <string name="mesh_radar_zoom_out">Zoom out radar</string>
+    <string name="mesh_radar_recenter">Center radar</string>
+    <string name="mesh_radar_toggle_grid">Toggle coordinate grid</string>
+    <string name="mesh_radar_peer_no_gps">Signal sector only (peer GPS off)</string>
+    <string name="mesh_radar_peer_gps_ready">GPS coordinates active</string>
+
+    <!-- Mesh Voice Calling -->
+    <string name="action_call">Call</string>
+    <string name="call_title_e2e">E2E Encrypted Mesh Call</string>
+    <string name="call_status_outgoing">Calling over mesh…</string>
+    <string name="call_status_incoming">Incoming mesh voice call…</string>
+    <string name="call_status_connecting">Establishing audio stream…</string>
+    <string name="call_status_active_direct">Live · Direct 1-Hop Link</string>
+    <string name="call_status_active_multihop">Live · %1$d Hops via Mesh</string>
+    <string name="call_ended_hangup">Call ended</string>
+    <string name="call_ended_declined">Call declined</string>
+    <string name="call_ended_busy">Peer is on another call</string>
+    <string name="call_ended_no_answer">No answer</string>
+    <string name="call_ended_unreachable">Peer unreachable on mesh</string>
+    <string name="call_ended_link_lost">Mesh link disconnected</string>
+    <string name="call_ended_mic_denied">Microphone permission required for calls</string>
+    <string name="call_action_accept">Accept</string>
+    <string name="call_action_decline">Decline</string>
+    <string name="call_action_hangup">End Call</string>
+    <string name="call_action_mute">Mute</string>
+    <string name="call_action_unmute">Unmute</string>
+    <string name="call_action_speaker">Speaker</string>
+    <string name="call_action_minimize">Minimize</string>
+    <string name="call_minimized_banner">Mesh call · %1$s · %2$s (Tap to open)</string>
+    <string name="call_log_completed">Voice call · %1$s</string>
+    <string name="call_log_missed">Missed voice call</string>
+    <string name="call_log_declined">Declined voice call</string>
+    <string name="notification_channel_calls_name">Incoming Mesh Calls</string>
+    <string name="notification_channel_calls_desc">Alerts for real-time offline voice calls.</string>
+    <string name="notification_call_incoming_body">Encrypted offline voice call</string>
+    <string name="notification_call_active_body">Mesh voice call in progress · %1$s</string>
+</resources>

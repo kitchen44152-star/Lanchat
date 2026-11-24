@@ -1,0 +1,6 @@
+{
+  "name": "LanChat",
+  "description": "Offline multi-hop mesh messaging app with end-to-end encryption, QR peer verification, voice notes, and chunked image transfers.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
