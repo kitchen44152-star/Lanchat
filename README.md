@@ -7,7 +7,8 @@ Status: early preview (v0.1.0). The JVM unit tests pass (29 of 29) and the debug
 ## What it does
 
 - Finds nearby phones and relays messages across several hops, using Google Nearby Connections.
-- Uses Ed25519 signatures and encrypts messages with keys agreed over X25519 and AES-GCM, through the Tink library.
+- Direct chats and private groups are encrypted with AES-GCM (direct chats use keys agreed over X25519), and mesh packets are signed with Ed25519, all through the Tink library.
+- The public Nearby Mesh broadcast channel is not end-to-end encrypted. Its text is only Base64-encoded, so anyone in range can read it.
 - Verify a contact by scanning their QR code.
 - Voice notes, image transfer in chunks, voice calls and a compass view of nearby peers. These are in the code; how well they work on real hardware is not yet measured.
 
