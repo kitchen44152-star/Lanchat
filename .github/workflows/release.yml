@@ -1,0 +1,51 @@
+name: release
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag
+        default: v0.1.0
+permissions:
+  contents: write
+jobs:
+  signed-preview:
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event.inputs.tag || github.ref_name }}
+      EXPECTED_SHA256: 6B:5A:71:95:01:A3:D7:8F:0A:7F:EE:BF:60:88:CC:AF:C5:5F:1F:C0:66:66:F0:91:FD:56:B6:55:76:E3:E5:F4
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with: { distribution: temurin, java-version: 21 }
+      - uses: gradle/actions/setup-gradle@v6
+        with: { gradle-version: 9.3.1 }
+      - name: Debug keystore (throwaway, used only by the debug variant)
+        run: keytool -genkeypair -keystore debug.keystore -storepass android -keypass android -alias androiddebugkey -dname "CN=Android Debug,O=Android,C=US" -keyalg RSA -keysize 2048 -validity 10000
+      - name: Restore release keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/upload.jks"
+      - name: Test and build signed release APK
+        env:
+          KEYSTORE_PATH: ${{ runner.temp }}/upload.jks
+          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: gradle :app:testDebugUnitTest :app:assembleRelease
+      - name: Verify signature and certificate fingerprint
+        run: |
+          APK=$(ls app/build/outputs/apk/release/*.apk | head -1)
+          APKSIGNER=$(ls $ANDROID_HOME/build-tools/*/apksigner | tail -1)
+          "$APKSIGNER" verify --print-certs "$APK" | tee certs.txt
+          GOT=$(grep "certificate SHA-256 digest" certs.txt | head -1 | awk '{print $NF}' | tr 'a-f' 'A-F' | sed 's/../&:/g; s/:$//')
+          WANT=$(echo "$EXPECTED_SHA256" | tr -d ':' | tr 'a-f' 'A-F')
+          GOTC=$(echo "$GOT" | tr -d ':')
+          echo "got $GOTC want $WANT"
+          test "$GOTC" = "$WANT"
+          cp "$APK" "Lanchat-${TAG#v}-preview.apk"
+      - name: Publish pre-release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$TAG" "Lanchat-${TAG#v}-preview.apk" --prerelease --target "$GITHUB_SHA" --title "$TAG preview" --notes-file .github/release-notes/v0.1.0.md
