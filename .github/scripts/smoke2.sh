@@ -101,11 +101,11 @@ $U $S1 tapdesc Chats; sleep 2
 $U $S1 tap "New Encrypted Group" 0; sleep 3
 $U $S1 edit; sleep 1
 $U $S1 type "TeamAlpha"; sleep 1
-$U $S1 tap "Select Peers" 0; sleep 1
+adb -s $S1 shell input keyevent 4; sleep 1
 adb -s $S1 shell input tap 138 706; sleep 1
 adb -s $S1 exec-out screencap -p > $OUT/A-12-group.png
 $U $S1 texts > $OUT/A-12-texts.txt
-$U $S1 tap "Create AES-256 Encrypted Room" 0; sleep 4
+adb -s $S1 shell input tap 540 2226; sleep 4
 adb -s $S1 exec-out screencap -p > $OUT/A-13-group-created.png
 $U $S1 texts > $OUT/A-13-texts.txt
 $U $S1 edit; sleep 1
@@ -131,6 +131,9 @@ $U $S1 tap "Bravo" 0; sleep 3
 $U $S1 tapdesc "Choose Photo"; sleep 4
 adb -s $S1 exec-out screencap -p > $OUT/A-17-picker.png
 $U $S1 nodes > $OUT/A-17-nodes.txt
+$U $S1 tap "Choose Photo" 1; sleep 5
+adb -s $S1 exec-out screencap -p > $OUT/A-18-picker2.png
+$U $S1 nodes > $OUT/A-18-nodes.txt
 for s in $S1 $S2; do
   adb -s $s shell pidof $PKG | tee -a $OUT/pids.txt
   adb -s $s logcat -d > $OUT/$s-logcat.txt
