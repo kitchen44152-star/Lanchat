@@ -66,7 +66,7 @@ adb -s $S1 exec-out screencap -p > $OUT/A-04-channel.png
 $U $S1 nodes > $OUT/A-04-nodes.txt
 $U $S1 edit; sleep 1
 $U $S1 type "hello_from_alpha_1"; sleep 1
-adb -s $S1 shell input keyevent 66; sleep 1
+$U $S1 tapdesc Send; sleep 3
 adb -s $S1 exec-out screencap -p > $OUT/A-05-typed.png
 $U $S1 nodes > $OUT/A-05-nodes.txt
 sleep 10
@@ -76,6 +76,7 @@ adb -s $S2 exec-out screencap -p > $OUT/B-06-channel.png
 $U $S2 texts > $OUT/B-06-texts.txt
 # tabs on Alpha after keyboard closed
 adb -s $S1 shell monkey -p $PKG -c android.intent.category.LAUNCHER 1 >/dev/null; sleep 3
+$U $S1 tapdesc Chats; sleep 2
 for t in Contacts Settings Mesh Chats; do
   $U $S1 tap "$t" 0; sleep 3
   adb -s $S1 exec-out screencap -p > $OUT/A-tab-$t.png
