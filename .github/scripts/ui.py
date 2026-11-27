@@ -40,3 +40,11 @@ elif cmd=='edit':
             m=re.findall(r'\d+',n.get('bounds')); x=(int(m[0])+int(m[2]))//2; y=(int(m[1])+int(m[3]))//2
             adb('shell','input','tap',str(x),str(y)); print('EDIT',x,y); break
     else: print('NOEDIT'); sys.exit(1)
+elif cmd=='tapdesc':
+    want=sys.argv[3]
+    r=dump()
+    for n in nodes(r):
+        if (n.get('content-desc') or '')==want and n.get('bounds'):
+            m=re.findall(r'\d+',n.get('bounds')); x=(int(m[0])+int(m[2]))//2; y=(int(m[1])+int(m[3]))//2
+            adb('shell','input','tap',str(x),str(y)); print('TAPDESC',want,x,y); break
+    else: print('NODESC',want); sys.exit(1)
