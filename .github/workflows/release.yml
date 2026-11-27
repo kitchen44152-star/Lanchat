@@ -1,22 +1,36 @@
 name: release
+# Runs only when a version tag (v*) is pushed. The tagged commit is what gets built.
 on:
   push:
     tags: ['v*']
-  workflow_dispatch:
-    inputs:
-      tag:
-        description: Release tag
-        default: v0.1.0
 permissions:
   contents: write
 jobs:
   signed-preview:
     runs-on: ubuntu-latest
     env:
-      TAG: ${{ github.event.inputs.tag || github.ref_name }}
+      TAG: ${{ github.ref_name }}
       EXPECTED_SHA256: 6B:5A:71:95:01:A3:D7:8F:0A:7F:EE:BF:60:88:CC:AF:C5:5F:1F:C0:66:66:F0:91:FD:56:B6:55:76:E3:E5:F4
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Check tag, version, notes and versionCode agree
+        run: |
+          set -e
+          VER="${TAG#v}"
+          git merge-base --is-ancestor "$GITHUB_SHA" origin/main || { echo "tagged commit is not on main"; exit 1; }
+          NAME=$(grep -oE 'versionName = "[^"]+"' app/build.gradle.kts | head -1 | cut -d'"' -f2)
+          CODE=$(grep -oE 'versionCode = [0-9]+' app/build.gradle.kts | head -1 | grep -oE '[0-9]+')
+          echo "tag=$TAG versionName=$NAME versionCode=$CODE"
+          test "$NAME" = "$VER" || { echo "versionName does not match tag"; exit 1; }
+          test -f ".github/release-notes/$TAG.md" || { echo "missing .github/release-notes/$TAG.md"; exit 1; }
+          for t in $(git tag -l 'v*' | grep -vx "$TAG"); do
+            PC=$(git show "$t:app/build.gradle.kts" 2>/dev/null | grep -oE 'versionCode = [0-9]+' | head -1 | grep -oE '[0-9]+' || true)
+            if [ -n "$PC" ] && [ "$CODE" -le "$PC" ]; then echo "versionCode $CODE is not higher than $PC in $t"; exit 1; fi
+          done
+          echo "VERSION_CODE=$CODE" >> "$GITHUB_ENV"
+          echo "VERSION_NAME=$NAME" >> "$GITHUB_ENV"
       - uses: actions/setup-java@v6
         with: { distribution: temurin, java-version: 21 }
       - uses: gradle/actions/setup-gradle@v6
@@ -33,19 +47,24 @@ jobs:
           STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: gradle :app:testDebugUnitTest :app:assembleRelease
-      - name: Verify signature and certificate fingerprint
+      - name: Verify signature, fingerprint and APK version
         run: |
+          set -e
           APK=$(ls app/build/outputs/apk/release/*.apk | head -1)
           APKSIGNER=$(ls $ANDROID_HOME/build-tools/*/apksigner | tail -1)
+          AAPT2=$(ls $ANDROID_HOME/build-tools/*/aapt2 | tail -1)
           "$APKSIGNER" verify --print-certs "$APK" | tee certs.txt
-          GOT=$(grep "certificate SHA-256 digest" certs.txt | head -1 | awk '{print $NF}' | tr 'a-f' 'A-F' | sed 's/../&:/g; s/:$//')
+          GOT=$(grep "certificate SHA-256 digest" certs.txt | head -1 | awk '{print $NF}' | tr 'a-f' 'A-F' | tr -d ':')
           WANT=$(echo "$EXPECTED_SHA256" | tr -d ':' | tr 'a-f' 'A-F')
-          GOTC=$(echo "$GOT" | tr -d ':')
-          echo "got $GOTC want $WANT"
-          test "$GOTC" = "$WANT"
+          echo "got $GOT want $WANT"
+          test "$GOT" = "$WANT"
+          BADGE=$("$AAPT2" dump badging "$APK" | grep -m1 "^package:")
+          echo "$BADGE"
+          echo "$BADGE" | grep -q "versionCode='$VERSION_CODE'"
+          echo "$BADGE" | grep -q "versionName='$VERSION_NAME'"
           cp "$APK" "Lanchat-${TAG#v}-preview.apk"
       - name: Publish pre-release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "$TAG" "Lanchat-${TAG#v}-preview.apk" --prerelease --target "$GITHUB_SHA" --title "$TAG preview" --notes-file .github/release-notes/v0.1.0.md
+          gh release create "$TAG" "Lanchat-${TAG#v}-preview.apk" --prerelease --verify-tag --title "$TAG preview" --notes-file ".github/release-notes/$TAG.md"
