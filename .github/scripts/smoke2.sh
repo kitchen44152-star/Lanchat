@@ -12,8 +12,8 @@ export ANDROID_AVD_HOME=$HOME/.android/avd; mkdir -p $ANDROID_AVD_HOME
 for n in a b; do echo no | avdmanager create avd -n emu$n -k "system-images;android-34;google_apis;x86_64" -d pixel_6 --force 2>&1 | tee -a $OUT/avd.log; done
 avdmanager list avd 2>&1 | tee -a $OUT/avd.log; ls -la ~/.android/avd 2>&1 | tee -a $OUT/avd.log; emulator -list-avds | tee -a $OUT/avd.log
 emulator -list-avds | grep -q emua || { echo "AVD CREATION FAILED"; exit 1; }
-nohup emulator -avd emua -port 5554 -no-window -no-audio -no-boot-anim -gpu swiftshader_indirect -no-snapshot -accel on -memory 2048 > $OUT/emua.log 2>&1 &
-nohup emulator -avd emub -port 5556 -no-window -no-audio -no-boot-anim -gpu swiftshader_indirect -no-snapshot -accel on -memory 2048 > $OUT/emub.log 2>&1 &
+nohup emulator -avd emua -port 5554 -no-window -no-audio -no-boot-anim -gpu swiftshader_indirect -no-snapshot -accel on -memory 1792 -cores 2 > $OUT/emua.log 2>&1 &
+nohup emulator -avd emub -port 5556 -no-window -no-audio -no-boot-anim -gpu swiftshader_indirect -no-snapshot -accel on -memory 1792 -cores 2 > $OUT/emub.log 2>&1 &
 for s in $S1 $S2; do
   echo "[$(date +%T)] waiting for $s"
   timeout 300 adb -s $s wait-for-device; echo "wait rc=$?"
@@ -57,6 +57,8 @@ for s in $S1 $S2; do
   adb -s $s exec-out screencap -p > $OUT/$s-03-mesh-after-wait.png
   timeout 60 python3 .github/scripts/ui.py $s texts > $OUT/$s-03-mesh-texts.txt
 done
+for s in $S1 $S2; do adb -s $s logcat -d > $OUT/$s-logcat-pre.txt; adb -s $s shell dumpsys activity activities | grep -m3 -iE "mResumedActivity|topResumed" | tee -a $OUT/resumed.txt; done
+free -m | tee $OUT/mem.txt; adb devices | tee -a $OUT/mem.txt
 # open channel on Alpha and send a message
 U="timeout 60 python3 .github/scripts/ui.py"
 $U $S1 tap "#Nearby Mesh" 0; sleep 3
