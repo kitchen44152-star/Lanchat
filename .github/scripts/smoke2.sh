@@ -92,16 +92,45 @@ adb -s $S2 shell monkey -p $PKG -c android.intent.category.LAUNCHER 1 >/dev/null
 $U $S2 tapdesc Chats; sleep 3
 adb -s $S2 exec-out screencap -p > $OUT/B-10-chats.png
 $U $S2 texts > $OUT/B-10-texts.txt
-$U $S2 tap "Alpha" 0; sleep 3
+$U $S2 tap "Direct ·" 0; sleep 3
 adb -s $S2 exec-out screencap -p > $OUT/B-11-direct.png
 $U $S2 texts > $OUT/B-11-texts.txt
 # group UI exploration on Alpha
 adb -s $S1 shell monkey -p $PKG -c android.intent.category.LAUNCHER 1 >/dev/null; sleep 3
 $U $S1 tapdesc Chats; sleep 2
 $U $S1 tap "New Encrypted Group" 0; sleep 3
+$U $S1 edit; sleep 1
+$U $S1 type "TeamAlpha"; sleep 1
+$U $S1 tap "Select Peers" 0; sleep 1
+adb -s $S1 shell input tap 138 706; sleep 1
 adb -s $S1 exec-out screencap -p > $OUT/A-12-group.png
-$U $S1 nodes > $OUT/A-12-nodes.txt
 $U $S1 texts > $OUT/A-12-texts.txt
+$U $S1 tap "Create AES-256 Encrypted Room" 0; sleep 4
+adb -s $S1 exec-out screencap -p > $OUT/A-13-group-created.png
+$U $S1 texts > $OUT/A-13-texts.txt
+$U $S1 edit; sleep 1
+$U $S1 type "group_secret_1"; sleep 1
+$U $S1 tapdesc Send; sleep 3
+adb -s $S1 exec-out screencap -p > $OUT/A-14-group-sent.png
+$U $S1 texts > $OUT/A-14-texts.txt
+sleep 10
+adb -s $S2 shell monkey -p $PKG -c android.intent.category.LAUNCHER 1 >/dev/null; sleep 3
+$U $S2 tapdesc Chats; sleep 3
+adb -s $S2 exec-out screencap -p > $OUT/B-15-chats.png
+$U $S2 texts > $OUT/B-15-texts.txt
+$U $S2 tap "TeamAlpha" 0; sleep 3
+adb -s $S2 exec-out screencap -p > $OUT/B-16-group.png
+$U $S2 texts > $OUT/B-16-texts.txt
+# photo exploration on Alpha direct chat
+adb -s $S1 exec-out screencap -p > /tmp/photo.png
+adb -s $S1 push /tmp/photo.png /sdcard/Pictures/test_photo.png
+adb -s $S1 shell am broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE -d file:///sdcard/Pictures/test_photo.png >/dev/null
+adb -s $S1 shell monkey -p $PKG -c android.intent.category.LAUNCHER 1 >/dev/null; sleep 3
+$U $S1 tapdesc Chats; sleep 2
+$U $S1 tap "Bravo" 0; sleep 3
+$U $S1 tapdesc "Choose Photo"; sleep 4
+adb -s $S1 exec-out screencap -p > $OUT/A-17-picker.png
+$U $S1 nodes > $OUT/A-17-nodes.txt
 for s in $S1 $S2; do
   adb -s $s shell pidof $PKG | tee -a $OUT/pids.txt
   adb -s $s logcat -d > $OUT/$s-logcat.txt
