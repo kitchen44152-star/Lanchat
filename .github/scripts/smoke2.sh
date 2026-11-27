@@ -8,7 +8,9 @@ echo "[$(date +%T)] sdk setup"; ls $ANDROID_HOME $ANDROID_HOME/emulator 2>&1 | h
 yes | sdkmanager --licenses > $OUT/lic.log 2>&1
 timeout 600 sdkmanager "emulator" "platform-tools" "system-images;android-34;google_apis;x86_64" > $OUT/sdk.log 2>&1; echo "sdkmanager rc=$?"; tail -3 $OUT/sdk.log
 echo "[$(date +%T)] create avds"
-for n in a b; do echo no | avdmanager create avd -n emu$n -k "system-images;android-34;google_apis;x86_64" -d pixel_6 --force >/dev/null; done
+for n in a b; do echo no | avdmanager create avd -n emu$n -k "system-images;android-34;google_apis;x86_64" -d pixel_6 --force 2>&1 | tee -a $OUT/avd.log; done
+avdmanager list avd 2>&1 | tee -a $OUT/avd.log; ls -la ~/.android/avd 2>&1 | tee -a $OUT/avd.log; emulator -list-avds | tee -a $OUT/avd.log
+emulator -list-avds | grep -q emua || { echo "AVD CREATION FAILED"; exit 1; }
 nohup emulator -avd emua -port 5554 -no-window -no-audio -no-boot-anim -gpu swiftshader_indirect -no-snapshot -accel on -memory 2048 > $OUT/emua.log 2>&1 &
 nohup emulator -avd emub -port 5556 -no-window -no-audio -no-boot-anim -gpu swiftshader_indirect -no-snapshot -accel on -memory 2048 > $OUT/emub.log 2>&1 &
 for s in $S1 $S2; do
