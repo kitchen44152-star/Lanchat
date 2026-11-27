@@ -19,6 +19,16 @@ Status: early preview (v0.1.0). The JVM unit tests (29) pass in CI and the debug
 - Your identity keys are stored in the app's private storage and are not yet wrapped by the Android Keystore. Backup of app data is turned off.
 - Android only.
 
+## Install
+
+Requires Android 7.0 (API 24) or newer.
+
+1. Download `Lanchat-0.1.0-preview.apk` from the [v0.1.0 pre-release](https://github.com/kitchen44152-star/Lanchat/releases/tag/v0.1.0).
+2. Open it on your Android phone. Android will ask you to allow installs from your browser or file manager ("unknown sources"). The app is not on Google Play, so this is needed. Turn that permission off again afterwards.
+3. Optional check: the APK is signed with a certificate whose SHA-256 fingerprint is `6B:5A:71:95:01:A3:D7:8F:0A:7F:EE:BF:60:88:CC:AF:C5:5F:1F:C0:66:66:F0:91:FD:56:B6:55:76:E3:E5:F4`. You can compare it with `apksigner verify --print-certs Lanchat-0.1.0-preview.apk`.
+
+This is an early preview that has not been tested on a range of real devices. The public broadcast channel is not encrypted, and the encryption design has not been independently reviewed. Please report problems as issues with your phone model and Android version.
+
 ## Build
 
 Open in Android Studio (JDK 21) and run the app configuration, or use Gradle 9.3.1: `gradle :app:assembleDebug`. Run the unit tests with `gradle :app:testDebugUnitTest`. Release signing reads KEYSTORE_PATH, STORE_PASSWORD and KEY_PASSWORD from the environment. CI builds are debug builds for testing only.
