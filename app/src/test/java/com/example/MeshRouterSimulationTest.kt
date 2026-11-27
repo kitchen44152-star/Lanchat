@@ -217,29 +217,40 @@ class MeshRouterSimulationTest {
         val (idB, routerB, dbB) = createNode(bus, "Bravo")
 
         bus.connectBidirectional(idA.nodeId, idB.nodeId)
-        delay(200)
+        // Wait for the link handshake to register the peer instead of a fixed sleep.
+        awaitUntil { dbA.peerDao().getPeer(idB.nodeId) != null && dbB.peerDao().getPeer(idA.nodeId) != null }
 
         val convOnA = routerA.openOrCreateDirectConversation(idB.nodeId)
         val msgId = routerA.sendTextMessage(convOnA, "Confirm read + reaction")!!
-        delay(250)
 
         val convOnB = "peer:${idA.nodeId}"
+        awaitUntil { dbB.messageDao().observeMessages(convOnB).first().isNotEmpty() }
         val bMsgs = dbB.messageDao().observeMessages(convOnB).first()
         assertEquals(1, bMsgs.size)
 
         routerB.markIncomingMessagesRead(convOnB, bMsgs)
-        delay(250)
+        awaitUntil { dbA.messageDao().getMessage(msgId)?.deliveryStatus == DeliveryStatus.READ }
         assertEquals(DeliveryStatus.READ, dbA.messageDao().getMessage(msgId)?.deliveryStatus)
 
         // Toggle reaction ON
-        routerB.sendReaction(convOnB, msgId, "🔥")
-        delay(250)
-        assertTrue(dbA.messageDao().getMessage(msgId)?.reactionsJson?.contains("🔥") == true)
+        routerB.sendReaction(convOnB, msgId, "\uD83D\uDD25")
+        awaitUntil { dbA.messageDao().getMessage(msgId)?.reactionsJson?.contains("\uD83D\uDD25") == true }
+        assertTrue(dbA.messageDao().getMessage(msgId)?.reactionsJson?.contains("\uD83D\uDD25") == true)
 
         // Toggle reaction OFF
-        routerB.sendReaction(convOnB, msgId, "🔥")
-        delay(250)
-        assertFalse(dbA.messageDao().getMessage(msgId)?.reactionsJson?.contains("🔥") == true)
+        routerB.sendReaction(convOnB, msgId, "\uD83D\uDD25")
+        awaitUntil { dbA.messageDao().getMessage(msgId)?.reactionsJson?.contains("\uD83D\uDD25") != true }
+        assertFalse(dbA.messageDao().getMessage(msgId)?.reactionsJson?.contains("\uD83D\uDD25") == true)
+    }
+
+    /** Polls until [condition] holds or the timeout passes, so asserts do not depend on a fixed sleep. */
+    private suspend fun awaitUntil(timeoutMs: Long = 8000, condition: suspend () -> Boolean): Boolean {
+        val deadline = System.currentTimeMillis() + timeoutMs
+        while (System.currentTimeMillis() < deadline) {
+            if (condition()) return true
+            delay(25)
+        }
+        return condition()
     }
 
     @Test
