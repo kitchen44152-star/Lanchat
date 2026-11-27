@@ -131,9 +131,13 @@ $U $S1 tap "Bravo" 0; sleep 3
 $U $S1 tapdesc "Choose Photo"; sleep 4
 adb -s $S1 exec-out screencap -p > $OUT/A-17-picker.png
 $U $S1 nodes > $OUT/A-17-nodes.txt
-$U $S1 tap "Choose Photo" 1; sleep 5
+$U $S1 tap "Choose Photo" 0; sleep 6
 adb -s $S1 exec-out screencap -p > $OUT/A-18-picker2.png
 $U $S1 nodes > $OUT/A-18-nodes.txt
+$U $S1 texts > $OUT/A-18-texts.txt
+adb -s $S1 shell input tap 200 700; sleep 4
+adb -s $S1 exec-out screencap -p > $OUT/A-19-after-pick.png
+$U $S1 nodes > $OUT/A-19-nodes.txt
 for s in $S1 $S2; do
   adb -s $s shell pidof $PKG | tee -a $OUT/pids.txt
   adb -s $s logcat -d > $OUT/$s-logcat.txt
