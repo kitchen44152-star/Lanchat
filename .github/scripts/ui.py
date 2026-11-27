@@ -26,3 +26,14 @@ elif cmd=='tap':
     adb('shell','input','tap',str(x),str(y)); print('TAPPED',want,x,y)
 elif cmd=='type':
     adb('shell','input','text',sys.argv[3].replace(' ','%s'))
+elif cmd=='nodes':
+    r=dump()
+    for n in nodes(r):
+        print(n.get('class'),'|',n.get('text'),'|',n.get('content-desc'),'|click=',n.get('clickable'),'|',n.get('bounds'))
+elif cmd=='edit':
+    r=dump()
+    for n in nodes(r):
+        if 'EditText' in (n.get('class') or ''):
+            m=re.findall(r'\d+',n.get('bounds')); x=(int(m[0])+int(m[2]))//2; y=(int(m[1])+int(m[3]))//2
+            adb('shell','input','tap',str(x),str(y)); print('EDIT',x,y); break
+    else: print('NOEDIT'); sys.exit(1)
