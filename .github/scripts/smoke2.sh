@@ -139,13 +139,13 @@ $U $S1 tap "Photo taken" 0; sleep 6
 adb -s $S1 exec-out screencap -p > $OUT/A-19-after-pick.png
 $U $S1 nodes > $OUT/A-19-nodes.txt
 $U $S1 texts > $OUT/A-19-texts.txt
-$U $S1 tapdesc Send; sleep 8
+$U $S1 tap "Send" 1; sleep 8
 adb -s $S1 exec-out screencap -p > $OUT/A-20-after-send.png
 $U $S1 texts > $OUT/A-20-texts.txt
 sleep 15
 adb -s $S2 shell monkey -p $PKG -c android.intent.category.LAUNCHER 1 >/dev/null; sleep 3
 $U $S2 tapdesc Chats; sleep 2
-$U $S2 tap "Alpha" 0; sleep 4
+$U $S2 tap "Direct ·" 0; sleep 4
 adb -s $S2 exec-out screencap -p > $OUT/B-21-direct-after-photo.png
 $U $S2 texts > $OUT/B-21-texts.txt
 for s in $S1 $S2; do
