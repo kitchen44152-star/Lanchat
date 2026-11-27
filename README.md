@@ -2,7 +2,7 @@
 
 Chat between nearby Android phones with no internet, router or account. Messages hop from phone to phone over Bluetooth and Wi-Fi, so a group can stay in touch where there is no signal.
 
-Status: early preview (v0.1.0). The JVM unit tests pass (29 of 29) and the debug build compiles. It has not been tested on a range of real devices, and its encryption design has not been independently reviewed. Do not rely on it where your safety depends on it.
+Status: early preview (v0.1.0). The JVM unit tests (29) pass in CI and the debug build compiles, but one test (MeshRouterSimulationTest, read receipts and reactions) has been intermittently flaky, so some CI runs fail. It has not been tested on a range of real devices, and its encryption design has not been independently reviewed. Do not rely on it where your safety depends on it.
 
 ## What it does
 
