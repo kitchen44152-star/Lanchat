@@ -50,18 +50,35 @@ for s in $S1 $S2; do
   adb -s $s exec-out screencap -p > $OUT/$s-02-after-init.png
   timeout 60 python3 .github/scripts/ui.py $s texts > $OUT/$s-02-texts.txt
 done
-# visit main tabs on device 1
-for t in Mesh Contacts Settings Chats; do
-  timeout 60 python3 .github/scripts/ui.py $S1 tap "$t" 0 ; sleep 3
-  adb -s $S1 exec-out screencap -p > $OUT/$S1-tab-$t.png
-  timeout 60 python3 .github/scripts/ui.py $S1 texts > $OUT/$S1-tab-$t.txt
-done
 # give Nearby time to discover
 echo "[$(date +%T)] wait for discovery"; sleep 90
 for s in $S1 $S2; do
-  timeout 60 python3 .github/scripts/ui.py $s tap "Mesh" 0; sleep 3
+  adb -s $s shell input keyevent 4; sleep 1
   adb -s $s exec-out screencap -p > $OUT/$s-03-mesh-after-wait.png
   timeout 60 python3 .github/scripts/ui.py $s texts > $OUT/$s-03-mesh-texts.txt
+done
+# open channel on Alpha and send a message
+U="timeout 60 python3 .github/scripts/ui.py"
+$U $S1 tap "#Nearby Mesh" 0; sleep 3
+adb -s $S1 exec-out screencap -p > $OUT/A-04-channel.png
+$U $S1 nodes > $OUT/A-04-nodes.txt
+$U $S1 edit; sleep 1
+$U $S1 type "hello_from_alpha_1"; sleep 1
+adb -s $S1 shell input keyevent 66; sleep 1
+adb -s $S1 exec-out screencap -p > $OUT/A-05-typed.png
+$U $S1 nodes > $OUT/A-05-nodes.txt
+sleep 10
+$U $S2 tap "#Nearby Mesh" 0; sleep 3
+adb -s $S2 exec-out screencap -p > $OUT/B-06-channel.png
+$U $S2 texts > $OUT/B-06-texts.txt
+# tabs on Alpha after keyboard closed
+adb -s $S1 shell input keyevent 4; adb -s $S1 shell input keyevent 4; sleep 1
+for t in Contacts Settings Mesh Chats; do
+  $U $S1 tap "$t" 0; sleep 3
+  adb -s $S1 exec-out screencap -p > $OUT/A-tab-$t.png
+  $U $S1 texts > $OUT/A-tab-$t.txt
+done
+for s in $S1 $S2; do
   adb -s $s shell pidof $PKG | tee -a $OUT/pids.txt
   adb -s $s logcat -d > $OUT/$s-logcat.txt
   adb -s $s logcat -d -b crash > $OUT/$s-crash.txt
