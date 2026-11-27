@@ -4,8 +4,11 @@ import subprocess, sys, re, xml.etree.ElementTree as ET, time
 ser, cmd = sys.argv[1], sys.argv[2]
 def adb(*a): return subprocess.run(['adb','-s',ser,*a],capture_output=True,text=True).stdout
 def dump():
-    adb('shell','uiautomator','dump','/sdcard/u.xml')
-    return ET.fromstring(adb('exec-out','cat','/sdcard/u.xml'))
+    for _ in range(4):
+        adb('shell','uiautomator','dump','/sdcard/u.xml')
+        try: return ET.fromstring(adb('exec-out','cat','/sdcard/u.xml'))
+        except Exception: time.sleep(3)
+    print('DUMPFAIL'); sys.exit(2)
 def nodes(root):
     for n in root.iter('node'):
         yield n
