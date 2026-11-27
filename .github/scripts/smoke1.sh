@@ -6,8 +6,8 @@ mkdir -p $OUT
 adb wait-for-device
 adb shell getprop ro.build.version.sdk | tee $OUT/sdk.txt
 adb shell pm list packages | grep -E "com.google.android.gms|com.android.vending" | tee $OUT/gms.txt
-gh release download v0.1.0 --repo "$GITHUB_REPOSITORY" --pattern '*.apk' --dir $OUT
-APK=$(ls $OUT/*.apk | head -1)
+gh release download v0.1.0 --repo "$GITHUB_REPOSITORY" --pattern '*.apk' --dir /tmp/apk
+APK=$(ls /tmp/apk/*.apk | head -1)
 adb install -r "$APK" 2>&1 | tee $OUT/install.txt
 adb shell dumpsys package $PKG | grep -E "versionName|versionCode|requested permissions" -A0 | tee $OUT/pkginfo.txt
 adb logcat -c
