@@ -14,14 +14,16 @@ nohup emulator -avd emub -port 5556 -no-window -no-audio -no-boot-anim -gpu swif
 for s in $S1 $S2; do
   echo "[$(date +%T)] waiting for $s"
   timeout 300 adb -s $s wait-for-device; echo "wait rc=$?"
-  for i in $(seq 1 72); do [ "$(adb -s $s shell getprop sys.boot_completed | tr -d '\r')" = 1 ] && break; sleep 5; done
-  echo "$s booted: $(adb -s $s shell getprop sys.boot_completed)" | tee -a $OUT/boot.txt
+  for i in $(seq 1 72); do [ "$(timeout 10 adb -s $s shell getprop sys.boot_completed | tr -d '\r')" = 1 ] && break; sleep 5; done
+  echo "$s booted: $(timeout 10 adb -s $s shell getprop sys.boot_completed)" | tee -a $OUT/boot.txt
   adb -s $s shell settings put global window_animation_scale 0
   adb -s $s shell settings put global transition_animation_scale 0
   adb -s $s shell settings put global animator_duration_scale 0
 done
 adb devices | tee $OUT/devices.txt
-tail -5 $OUT/emua.log $OUT/emub.log
+nproc; free -m; ps aux | grep -c [q]emu-system
+for f in emua emub; do echo "== $f"; tail -n 25 $OUT/$f.log; done
+if ! adb devices | grep -q "$S1.*device$"; then echo "EMULATOR 1 NOT RUNNING, abort"; exit 1; fi
 echo "[$(date +%T)] installing"
 gh release download v0.1.0 --repo "$GITHUB_REPOSITORY" --pattern '*.apk' --dir /tmp/apk
 APK=$(ls /tmp/apk/*.apk | head -1)
