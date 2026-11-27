@@ -7,7 +7,7 @@
 
     <!-- Onboarding -->
     <string name="onboarding_title">Off-Grid Mesh Messaging</string>
-    <string name="onboarding_subtitle">Connect directly across phones without internet or routers. Encrypted end-to-end, relayed hop by hop.</string>
+    <string name="onboarding_subtitle">Connect directly across phones without internet or routers. Direct chats and private groups are encrypted, relayed hop by hop.</string>
     <string name="onboarding_name_label">Display Name</string>
     <string name="onboarding_name_hint">e.g., Alex · Trail Lead</string>
     <string name="onboarding_start_cta">Initialize Mesh Identity</string>
