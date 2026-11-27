@@ -74,14 +74,34 @@ adb -s $S2 shell monkey -p $PKG -c android.intent.category.LAUNCHER 1 >/dev/null
 $U $S2 tap "#Nearby Mesh" 0; sleep 3
 adb -s $S2 exec-out screencap -p > $OUT/B-06-channel.png
 $U $S2 texts > $OUT/B-06-texts.txt
-# tabs on Alpha after keyboard closed
+# direct chat via Contacts
 adb -s $S1 shell monkey -p $PKG -c android.intent.category.LAUNCHER 1 >/dev/null; sleep 3
 $U $S1 tapdesc Chats; sleep 2
-for t in Contacts Settings Mesh Chats; do
-  $U $S1 tap "$t" 0; sleep 3
-  adb -s $S1 exec-out screencap -p > $OUT/A-tab-$t.png
-  $U $S1 texts > $OUT/A-tab-$t.txt
-done
+$U $S1 tap "Contacts" 0; sleep 3
+adb -s $S1 exec-out screencap -p > $OUT/A-07-contacts.png
+$U $S1 tap "Message" 0; sleep 3
+adb -s $S1 exec-out screencap -p > $OUT/A-08-direct.png
+$U $S1 texts > $OUT/A-08-texts.txt
+$U $S1 edit; sleep 1
+$U $S1 type "direct_secret_1"; sleep 1
+$U $S1 tapdesc Send; sleep 3
+adb -s $S1 exec-out screencap -p > $OUT/A-09-direct-sent.png
+$U $S1 texts > $OUT/A-09-texts.txt
+sleep 10
+adb -s $S2 shell monkey -p $PKG -c android.intent.category.LAUNCHER 1 >/dev/null; sleep 3
+$U $S2 tapdesc Chats; sleep 3
+adb -s $S2 exec-out screencap -p > $OUT/B-10-chats.png
+$U $S2 texts > $OUT/B-10-texts.txt
+$U $S2 tap "Alpha" 0; sleep 3
+adb -s $S2 exec-out screencap -p > $OUT/B-11-direct.png
+$U $S2 texts > $OUT/B-11-texts.txt
+# group UI exploration on Alpha
+adb -s $S1 shell monkey -p $PKG -c android.intent.category.LAUNCHER 1 >/dev/null; sleep 3
+$U $S1 tapdesc Chats; sleep 2
+$U $S1 tap "New Encrypted Group" 0; sleep 3
+adb -s $S1 exec-out screencap -p > $OUT/A-12-group.png
+$U $S1 nodes > $OUT/A-12-nodes.txt
+$U $S1 texts > $OUT/A-12-texts.txt
 for s in $S1 $S2; do
   adb -s $s shell pidof $PKG | tee -a $OUT/pids.txt
   adb -s $s logcat -d > $OUT/$s-logcat.txt
