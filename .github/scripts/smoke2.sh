@@ -53,7 +53,7 @@ done
 # give Nearby time to discover
 echo "[$(date +%T)] wait for discovery"; sleep 90
 for s in $S1 $S2; do
-  adb -s $s shell input keyevent 4; sleep 1
+  adb -s $s shell monkey -p $PKG -c android.intent.category.LAUNCHER 1 >/dev/null; sleep 4
   adb -s $s exec-out screencap -p > $OUT/$s-03-mesh-after-wait.png
   timeout 60 python3 .github/scripts/ui.py $s texts > $OUT/$s-03-mesh-texts.txt
 done
@@ -70,11 +70,12 @@ adb -s $S1 shell input keyevent 66; sleep 1
 adb -s $S1 exec-out screencap -p > $OUT/A-05-typed.png
 $U $S1 nodes > $OUT/A-05-nodes.txt
 sleep 10
+adb -s $S2 shell monkey -p $PKG -c android.intent.category.LAUNCHER 1 >/dev/null; sleep 4
 $U $S2 tap "#Nearby Mesh" 0; sleep 3
 adb -s $S2 exec-out screencap -p > $OUT/B-06-channel.png
 $U $S2 texts > $OUT/B-06-texts.txt
 # tabs on Alpha after keyboard closed
-adb -s $S1 shell input keyevent 4; adb -s $S1 shell input keyevent 4; sleep 1
+adb -s $S1 shell monkey -p $PKG -c android.intent.category.LAUNCHER 1 >/dev/null; sleep 3
 for t in Contacts Settings Mesh Chats; do
   $U $S1 tap "$t" 0; sleep 3
   adb -s $S1 exec-out screencap -p > $OUT/A-tab-$t.png
